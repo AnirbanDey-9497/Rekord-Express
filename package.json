@@ -1,0 +1,35 @@
+{
+  "name": "rekord-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnirbanDey-9497/Rekord-Express.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnirbanDey-9497/Rekord-Express/issues"
+  },
+  "homepage": "https://github.com/AnirbanDey-9497/Rekord-Express#readme",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.802.0",
+    "@aws-sdk/lib-storage": "^3.802.0",
+    "aws-sdk": "^2.1692.0",
+    "axios": "^1.9.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "fix-webm-duration": "^1.0.6",
+    "hound": "^1.0.5",
+    "nodemon": "^3.1.10",
+    "openai": "^4.97.0",
+    "socket.io": "^4.8.1",
+    "zod": "^3.24.3"
+  }
+}
