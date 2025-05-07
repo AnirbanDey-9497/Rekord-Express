@@ -1,11 +1,12 @@
 # Rekord-Express
 
-A powerful Node.js/Express backend service for handling video recording, processing, and AI-powered analysis. This service is designed to work seamlessly with AWS S3 for storage and OpenAI for advanced video content analysis.
+A powerful Node.js/Express backend service for handling video recording, processing, and AI-powered analysis. This service is designed to work seamlessly with AWS S3 for storage, CloudFront for content delivery, and OpenAI for advanced video content analysis.
 
 ## Features
 
 - 🎥 Real-time video recording and chunk processing
 - ☁️ AWS S3 integration for video storage
+- 🌐 CloudFront CDN integration for optimized video delivery
 - 🤖 OpenAI integration for:
   - Video transcription (Whisper)
   - AI-powered Q&A based on video content
@@ -17,7 +18,9 @@ A powerful Node.js/Express backend service for handling video recording, process
 ## Prerequisites
 
 - Node.js (v14 or higher)
-- AWS Account with S3 access
+- AWS Account with:
+  - S3 access
+  - CloudFront distribution set up
 - OpenAI API key
 - Environment variables configured
 
@@ -41,6 +44,7 @@ ACCESS_KEY=your_aws_access_key
 SECRET_KEY=your_aws_secret_key
 BUCKET_REGION=your_aws_region
 BUCKET_NAME=your_s3_bucket_name
+CLOUDFRONT_DOMAIN=your_cloudfront_domain
 ELECTRON_HOST=your_electron_app_host
 NEXT_API_HOST=your_next_api_host
 ```
@@ -93,6 +97,18 @@ The following features are only available for PRO users:
 - AI-powered Q&A based on video content
 - Automatic title and summary generation
 
+## AWS Integration
+
+### S3 Storage
+- Videos are stored in the configured S3 bucket
+- Files are uploaded with proper content type and metadata
+
+### CloudFront CDN
+- Videos are served through CloudFront for optimized delivery
+- Reduced latency and improved playback performance
+- Global content distribution
+- HTTPS support for secure video delivery
+
 ## Project Structure
 
 ```
@@ -118,7 +134,3 @@ This project is licensed under the Apache License - see the [LICENSE](LICENSE) f
 ## Author
 
 Anirban Dey
-
-## Project Identifier
-
-`REKORD-EXPRESS-2024-AD`
