@@ -1,6 +1,6 @@
 # Rekord-Express
 
-A powerful Node.js/Express backend service for handling video recording, processing, and AI-powered analysis. This service is designed to work seamlessly with AWS S3 for storage, CloudFront for content delivery, and OpenAI for advanced video content analysis.
+A powerful Node.js/Express backend service for handling video recording, processing, and AI-powered analysis. This service is designed to work seamlessly with AWS S3 for storage, CloudFront for content delivery, and OpenAI for advanced video content analysis. This is the backend service that powers the Rekord ecosystem, working in conjunction with the [Rekord Desktop App](https://github.com/AnirbanDey-9497/Rekord-Desktop) and [Rekord Frontend](https://github.com/AnirbanDey-9497/Rekord).
 
 ## Features
 
@@ -15,6 +15,51 @@ A powerful Node.js/Express backend service for handling video recording, process
 - 🔄 WebSocket support for real-time communication
 - 🎯 CORS enabled for cross-origin requests
 
+## Architecture
+
+### Real-time Video Recording Flow
+```
+[Rekord Desktop App]                    [Rekord-Express]                    [Storage]
+     │                                       │                                 │
+     │     Start Recording                   │                                 │
+     │───────────────►                      │                                 │
+     │                                       │                                 │
+     │     Stream Video Chunks (Real-time)   │                                 │
+     │──────────────────────────────────────►│                                 │
+     │                                       │                                 │
+     │                                       │     Save to temp_upload/        │
+     │                                       │───────────────►                 │
+     │                                       │                                 │
+     │     Stop Recording                    │                                 │
+     │───────────────►                      │                                 │
+     │                                       │                                 │
+     │                                       │     Upload to AWS S3            │
+     │                                       │────────────────────────────────►│
+     │                                       │                                 │
+     │                                       │     Serve via CloudFront        │
+     │                                       │◄────────────────────────────────│
+     │                                       │                                 │
+     │     Receive Status                    │                                 │
+     │◄───────────────                      │                                 │
+```
+
+### Data Flow
+```
+[Rekord Desktop] ──Real-time Video Chunks──► [Rekord-Express] ──Store──► [AWS S3]
+                                                      │
+                                                      │
+                                                      ▼
+                                              [temp_upload/]
+                                                      │
+                                                      │
+                                                      ▼
+[Rekord Frontend] ◄───Stream via CloudFront─── [CloudFront CDN]
+```
+
+### Video Chunks Processing
+![Video Chunks Console Output](rekord-express.png)
+*Real-time video chunks being processed and saved in the console*
+
 ## Prerequisites
 
 - Node.js (v14 or higher)
@@ -23,6 +68,8 @@ A powerful Node.js/Express backend service for handling video recording, process
   - CloudFront distribution set up
 - OpenAI API key
 - Environment variables configured
+- [Rekord Desktop App](https://github.com/AnirbanDey-9497/Rekord-Desktop) installed
+- [Rekord Frontend](https://github.com/AnirbanDey-9497/Rekord) deployed
 
 ## Installation
 
@@ -86,8 +133,8 @@ The server will start on port 5001.
 ## WebSocket Events
 
 ### Client to Server
-- `video-chunks`: Send video recording chunks
-- `process-video`: Trigger video processing
+- `video-chunks`: Send video recording chunks in real-time
+- `process-video`: Trigger video processing after recording stops
 - `disconnect`: Handle client disconnection
 
 ## Pro Features
@@ -102,6 +149,7 @@ The following features are only available for PRO users:
 ### S3 Storage
 - Videos are stored in the configured S3 bucket
 - Files are uploaded with proper content type and metadata
+- Temporary storage in `temp_upload/` directory before S3 upload
 
 ### CloudFront CDN
 - Videos are served through CloudFront for optimized delivery
@@ -129,8 +177,12 @@ Rekord-Express/
 
 ## License
 
-This project is licensed under the Apache License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
 
 ## Author
 
 Anirban Dey
+
+## Project Identifier
+
+`REKORD-EXPRESS-2024-AD`
