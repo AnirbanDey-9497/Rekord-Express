@@ -177,12 +177,8 @@ Rekord-Express/
 
 ## License
 
-This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache License - see the [LICENSE](LICENSE) file for details.
 
 ## Author
 
 Anirban Dey
-
-## Project Identifier
-
-`REKORD-EXPRESS-2024-AD`
